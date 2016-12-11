@@ -1,10 +1,14 @@
 "
 " .vimrc
 "
+"swap
+set swapfile
+set dir=~/.vim/tmp backupdir=~/.vim/tmp
+
 " Tabs and Spaces
 set tabstop=4
-set shiftwidth=2
-set softtabstop=2
+set shiftwidth=4
+set softtabstop=4
 set backspace=indent,eol,start
 set expandtab
 set autoindent
@@ -12,7 +16,7 @@ set smarttab
 
 " Misc
 set number
-"set ruler
+set ruler
 set showmatch
 set wildmenu
 set wildmode=list,full
@@ -31,6 +35,7 @@ set scrolloff=4
 set nofoldenable
 set timeoutlen=500                  " Set timeout between key sequences
 set background=dark
+set mouse=vin                       " Enable mouse in insert and normal mode
 set directory=~/tmp,/var/tmp,/tmp,. " Keep swap files in one of these
 set wmh=0                           " Minimum window height = 0
 set showcmd
@@ -47,7 +52,7 @@ set virtualedit=block
 set tags+=.tags
 set undofile
 set gdefault                        " Always use /g with %s/
-"set colorcolumn=80
+set colorcolumn=80
 set list
 set listchars=tab:·\ ,eol:¬,trail:█
 set fillchars=diff:\ ,vert:│
@@ -55,8 +60,8 @@ set diffopt=filler,vertical,foldcolumn:0
 set lazyredraw                      " Stop vim from freaking out all the time
 set statusline=%<%f\ %h%m%r%=%{Hi()}\ %y\ \ %-14(%{&sw}:%{&sts}:%{&ts}%)%-14.(%l,%c%V%)\ %P
 set mouse=v
-set paste
-set ai
+set ai   "auto indentation
+set paste "set paste properly
 
 " We don't use tabs much, but at least try and show less cruft
 function! Tabline()
@@ -127,6 +132,27 @@ function! s:StripTrailing()
     %s/\s\+$//e
     call cursor(l, c)
 endfunction
+
+" Haskell
+let g:haskellmode_completion_ghc = 0
+let g:haskell_enable_quantification = 1
+au FileType haskell setlocal omnifunc=necoghc#omnifunc
+au FileType haskell setlocal makeprg=stack\ build
+au FileType haskell setlocal errorformat=
+                \%-G,
+                \%-Z\ %#,
+                \%W%f:%l:%c:\ Warning:\ %m,
+                \%E%f:%l:%c:\ %m,
+                \%E%>%f:%l:%c:,
+                \%+C\ \ %#%m,
+                \%W%>%f:%l:%c:,
+                \%+C\ \ %#%tarning:\ %m,
+
+if executable('haskell-tags')
+  au BufWritePost *.hs  silent !haskell-tags % '.tags'
+  au BufWritePost *.hsc silent !haskell-tags % '.tags'
+endif
+
 " File-type
 filetype on
 filetype plugin on
@@ -250,3 +276,63 @@ function! Hi()
   return ''
 endfunction
 
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" Spelling.
+function! ToggleSpell()
+  if !exists("b:spell")
+    setlocal spell spelllang=en_us
+    let b:spell = 1
+  else
+    setlocal nospell
+    unlet b:spell
+  endif
+endfunction
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+"Plugin 'L9'
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+"
+"
+"Vim markdown
+ Plugin 'godlygeek/tabular'
+ Plugin 'plasticboy/vim-markdown'
+"
