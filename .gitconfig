@@ -9,24 +9,8 @@
 	fscache = true
 	trustctime = false
 	editor = notepad++.exe -multiInst -nosession \"$(cygpath -m \"$*\")\"
-[diff]
-	tool = bc3
-[difftool]
-	prompt = false
-[merge]
-	tool = bc3
-[mergetool]
-	prompt = false
-	keepbackup = false
 [alias]
 	st = status
 	ci = commit
 	co = checkout
 	lg = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
-[user]
-	email = tsharma@syncsort.com
-	name = Tushar Sharma
-[difftool "bc3"]
-	path = bcomp.exe
-[mergetool "bc3"]
-	path = bcomp.exe
