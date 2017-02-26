@@ -15,30 +15,18 @@ if has('persistent_undo')
     set undofile
 endif
 
-" backup to ~/.tmp
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backupskip=/tmp/*,/private/tmp/*
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set writebackup
-
-"Auto indendation
-set ai
-
-syntax on
-set paste
-
-"Comments make less ugly 
-color desert
-
 " Tabs and Spaces
-set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set backspace=indent,eol,start
+set expandtab
 set autoindent
 set smarttab
+
+set encoding=utf-8        " Formatage UTF-8
+set incsearch             " Incremental search
+set hlsearch              " Highlighte the last search pattern
 
 " Misc
 set number
@@ -87,6 +75,8 @@ set lazyredraw                      " Stop vim from freaking out all the time
 set statusline=%<%f\ %h%m%r%=%{Hi()}\ %y\ \ %-14(%{&sw}:%{&sts}:%{&ts}%)%-14.(%l,%c%V%)\ %P
 set mouse=v
 
+"make colors of comment less ugly
+color desert
 " We don't use tabs much, but at least try and show less cruft
 function! Tabline()
   let s = ''
@@ -312,3 +302,4 @@ function! ToggleSpell()
     unlet b:spell
   endif
 endfunction
+
