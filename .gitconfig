@@ -14,3 +14,16 @@
 	ci = commit
 	co = checkout
 	lg = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
+[diff]
+    tool = winmerge
+[difftool "winmerge"]
+    cmd = ~/git-difftool-winmerge-wrapper.sh \"$LOCAL\" \"$REMOTE\"
+[difftool]
+    prompt = false
+[merge]
+    tool = winmerge
+[mergetool "winmerge"]
+    cmd = ~/git-difftool-winmerge-wrapper.sh \"$MERGED\" \"$REMOTE\"
+[mergetool]
+    keepBackup = false
+    trustExitCode = false
