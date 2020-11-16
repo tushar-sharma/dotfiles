@@ -190,7 +190,7 @@ git_branch() {
 }
 # NOTE: The dollar sign ($) has to be escaped so that the above function is executed every time the prompt is shown
 # like this: \$(git_branch)
-export PS1="\[\e]0;\w\a\]\n\[\e[36m\]CygWin:\[\e[33m\]\w\[\e[0m\] \[\e[32m\]\[\e[1m\]\$(git_branch)\[\e[0m\]\n$ "
+export PS1="\[\e]0;\w\a\]\n\[\e[36m\]${USER}@${hostname}:\[\e[33m\]\w\[\e[0m\] \[\e[32m\]\[\e[1m\]\$(git_branch)\[\e[0m\]\n$ "
 
 # For WSL
 git_branch() {
