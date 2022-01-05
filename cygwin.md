@@ -31,4 +31,9 @@ $ ./install.sh
 
 5. Edit the Cygwin /etc/nsswitch.conf file.
 
-Add or edit the following line: db_home: /%H
+Add or edit the following line: 
+
+```bash
+db_home: /%H
+db_shell: /bin/zsh
+```
