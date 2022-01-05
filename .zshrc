@@ -13,7 +13,6 @@ export ZSH="$HOME/.oh-my-zsh"
 POWERLEVEL9K_MODE='awesome-fontconfig'
 
 #ZSH_THEME="powerlevel9k/powerlevel9k"
-ZSH_THEME="agnoster"
 export TERM="xterm-256color"
 
 plugins=(git zsh-autosuggestions)
