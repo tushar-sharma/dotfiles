@@ -13,10 +13,10 @@ export ZSH="$HOME/.oh-my-zsh"
 POWERLEVEL9K_MODE='awesome-fontconfig'
 
 #ZSH_THEME="powerlevel9k/powerlevel9k"
-export TERM="xterm-256color"
 
 plugins=(git zsh-autosuggestions)
 
+export TERM="xterm-256color"
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
