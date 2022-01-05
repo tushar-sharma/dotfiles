@@ -26,3 +26,7 @@ $ git clone https://github.com/powerline/fonts.git --depth=1
 $ cd fonts 
 $ ./install.sh
 ```
+
+4. Edit the Cygwin /etc/nsswitch.conf file.
+
+Add or edit the following line: db_home: /%H
