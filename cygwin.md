@@ -19,7 +19,9 @@
 * zip 
 * zsh
 
-3. Install fonts 
+2. Install Oh my zsh using [Manual Installation](https://github.com/ohmyzsh/ohmyzsh#manual-installation).
+
+4. Install fonts 
 
 ```bash
 $ git clone https://github.com/powerline/fonts.git --depth=1
@@ -27,6 +29,6 @@ $ cd fonts
 $ ./install.sh
 ```
 
-4. Edit the Cygwin /etc/nsswitch.conf file.
+5. Edit the Cygwin /etc/nsswitch.conf file.
 
 Add or edit the following line: db_home: /%H
