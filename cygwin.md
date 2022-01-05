@@ -34,6 +34,5 @@ $ ./install.sh
 Add or edit the following line: 
 
 ```bash
-db_home: /%H
 db_shell: /bin/zsh
 ```
