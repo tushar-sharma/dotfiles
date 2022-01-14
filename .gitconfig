@@ -19,6 +19,9 @@
 	lg = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
 [diff]
     tool = winmerge
+    # tool = bc3
+    # git config --global diff.tool bc3
+    # git config --global merge.tool bc3
 [difftool "winmerge"]
     cmd = ~/git-difftool-winmerge-wrapper.sh \"$LOCAL\" \"$REMOTE\"
 [difftool]
