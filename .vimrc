@@ -303,3 +303,5 @@ function! ToggleSpell()
   endif
 endfunction
 
+noremap zz <c-w>_ \| <c-w>\|
+noremap zo <c-w>=
