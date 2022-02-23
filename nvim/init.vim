@@ -219,3 +219,6 @@ function! FZFOpen(command_str)
 endfunction
 
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+
+noremap zz <c-w>_ \| <c-w>\|
+noremap zo <c-w>=
