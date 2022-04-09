@@ -9,20 +9,24 @@
 ## $ ./install.sh
 ## $ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
 
-POWERLEVEL9K_MODE='awesome-fontconfig'
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
-#ZSH_THEME="powerlevel9k/powerlevel9k"
-
-plugins=(git zsh-autosuggestions)
+plugins=(
+    git 
+    zsh-autosuggestions
+    zsh-nvm
+)
 
 export TERM="xterm-256color"
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
-POWERLEVEL9K_MULTILINE_SECOND_PROMPT_PREFIX="↳ "
 
 source ~/.bash_profile
 
 source $ZSH/oh-my-zsh.sh
+
+
+autoload -U compinit && compinit
+
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
