@@ -196,4 +196,8 @@ export PS1="\[\e]0;\w\a\]\n\[\e[36m\]${USER}@${hostname}:\[\e[33m\]\W\[\e[0m\] \
 git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'
 }
+
+# for git commit 
+ci() { git commit -m "$1"; }
+
 # NOTE: The dollar sign ($) has to be escaped so that the above function is executed every time the prompt is shown
