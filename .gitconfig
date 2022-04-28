@@ -13,10 +13,26 @@
 	trustctime = false
 	editor = notepad++.exe -multiInst -nosession \"$(cygpath -m \"$*\")\"
 [alias]
-	st = status
-	ci = commit
-	co = checkout
-	lg = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
+        a = add
+        au = add -u
+	br = branch
+        ci = commit
+        co = checkout
+        d = diff
+        ds = diff --stat
+        dc = diff --cached
+	df = difftool
+        f = fetch
+        p = push
+	pl = pull
+        lg = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
+	r = reflog
+	rs = reset --hard
+        s = status
+	sl = stash list
+	st = stash 
+	sp = stash pop
+	
 [diff]
     tool = winmerge
     # tool = bc3
