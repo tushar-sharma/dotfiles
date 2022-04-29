@@ -10,19 +10,47 @@
 ## $ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
 plugins=(
     git 
     zsh-autosuggestions
-    zsh-nvm
 )
+
+source $ZSH/oh-my-zsh.sh
+
 
 export TERM="xterm-256color"
 
-source ~/.bash_profile
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
-source $ZSH/oh-my-zsh.sh
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Ensure exa is available
+if (( ! ${+commands[exa]} )); then
+  return 1
+fi
+
+
+
+export EXA_COLORS='da=1;34:gm=1;34'
+alias sl='ls'
+alias ls='exa --group-directories-first'
+alias ll='ls -l'        # Long format, git status
+alias l='ll -a'               # Long format, all files
+alias lr='ll -T'              # Long format, recursive as a tree
+alias lx='ll -sextension'     # Long format, sort by extension
+alias lk='ll -ssize'          # Long format, largest file size last
+alias lt='ll -smodified'      # Long format, newest modification time last
+alias lc='ll -schanged'       # Long format, newest status change (ctime) last
+
+# set alias 
+alias g='git'
+
+
+# make git commit easy
+ci() { git commit -m "$1"; }
 
 
 autoload -U compinit && compinit
