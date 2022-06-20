@@ -23,7 +23,7 @@
         dc = diff --cached
 	df = difftool
         f = fetch
-        p = push
+        p = push -u origin HEAD
 	pl = pull
         lg = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
 	r = reflog
