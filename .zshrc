@@ -47,11 +47,17 @@ alias lc='ll -schanged'       # Long format, newest status change (ctime) last
 
 # set alias 
 alias g='git'
+alias tg='tig grep'
 
 
 # make git commit easy
 ci() { git commit -m "$1"; }
 
+cp() {
+  g au;
+  git commit -m "$1";
+  g p;
+}
 
 autoload -U compinit && compinit
 
