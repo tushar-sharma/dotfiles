@@ -74,6 +74,9 @@ set diffopt=filler,vertical,foldcolumn:0
 set lazyredraw                      " Stop vim from freaking out all the time
 set statusline=%<%f\ %h%m%r%=%{Hi()}\ %y\ \ %-14(%{&sw}:%{&sts}:%{&ts}%)%-14.(%l,%c%V%)\ %P
 set mouse=v
+"to show all characters
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+
 
 "make colors of comment less ugly
 color desert
