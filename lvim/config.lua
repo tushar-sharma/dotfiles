@@ -10,9 +10,9 @@ vim.opt.relativenumber = true
 -- general
 lvim.log.level = "info"
 lvim.format_on_save = {
-	enabled = true,
-	pattern = "*.lua",
-	timeout = 1000,
+  enabled = true,
+  pattern = "*.lua",
+  timeout = 1000,
 }
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -116,66 +116,96 @@ lvim.builtin.treesitter.auto_install = true
 --   end,
 -- })
 
-lvim.plugins = {
-	{
-		"zbirenbaum/copilot.lua",
-		event = { "InsertEnter" },
-		config = function()
-			require("copilot").setup({
-				panel = { enabled = false },
-				suggestion = {
-					auto_trigger = true,
-					keymap = {
-						accept = "<C-l>",
-						next = "<C-j>",
-						prev = "<C-k>",
-						dismiss = "<C-h>",
-					},
-				},
-			})
-		end,
-	},
-	{
-		"zbirenbaum/copilot-cmp",
-		lazy = false,
-		dependencies = { "zbirenbaum/copilot.lua" },
-		config = function()
-			require("copilot_cmp").setup()
+-- Load language-specific configurations
+local python_config = require("user.python")
+local java_config = require("user.java")
 
-			-- Properly add Copilot as a cmp source
-			local cmp = require("cmp")
-			cmp.setup({
-				sources = cmp.config.sources({
-					{ name = "copilot" },
-				}, {
-					{ name = "nvim_lsp" },
-					{ name = "buffer" },
-					{ name = "path" },
-				})
-			})
-		end,
-	},
+lvim.plugins = {
+  -- Use LunarVim's built-in Java support instead
+  {
+    "mfussenegger/nvim-jdtls",
+    ft = "java",
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    event = { "InsertEnter" },
+    config = function()
+      require("copilot").setup({
+        panel = { enabled = false },
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = "<C-l>",
+            next = "<C-j>",
+            prev = "<C-k>",
+            dismiss = "<C-h>",
+          },
+        },
+      })
+    end,
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    lazy = false,
+    dependencies = { "zbirenbaum/copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+
+      -- Properly add Copilot as a cmp source
+      local cmp = require("cmp")
+      cmp.setup({
+        sources = cmp.config.sources({
+          { name = "copilot" },
+        }, {
+          { name = "nvim_lsp" },
+          { name = "buffer" },
+          { name = "path" },
+        })
+      })
+    end,
+  },
 }
+
+-- Add Python plugins from the python configuration
+vim.list_extend(lvim.plugins, python_config.plugins)
+
+-- Add Java plugins from the java configuration  
+vim.list_extend(lvim.plugins, java_config.plugins)
+
+-- Initialize Python configuration
+python_config.setup()
+
+-- Initialize Java configuration
+java_config.setup()
+
+-- Enable LunarVim's built-in Java support
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "java",
+  callback = function()
+    -- Enable JDTLS with LunarVim's default configuration
+    require("lvim.lsp.manager").setup("jdtls")
+  end,
+})
 
 -- 🔁 Toggle Copilot auto-suggest with <C-s>
 vim.keymap.set("n", "<C-s>", function()
-	local ok, suggestion = pcall(require, "copilot.suggestion")
-	if ok then
-		suggestion.toggle_auto_trigger()
-	end
+  local ok, suggestion = pcall(require, "copilot.suggestion")
+  if ok then
+    suggestion.toggle_auto_trigger()
+  end
 end, { noremap = true, silent = true, desc = "Toggle Copilot Auto Trigger" })
 
 lvim.builtin.alpha.dashboard.section.footer.val = {
-	"✨ by Tushar Sharma 🛠️",
-	"📅 " .. os.date("%A, %B %d, %Y"),
+  "✨ by Tushar Sharma 🛠️",
+  "📅 " .. os.date("%A, %B %d, %Y"),
 }
 
 lvim.builtin.alpha.dashboard.section.header.val = {
-	"   _                               _            _          _ ",
-	"  / \\   ___ ___ ___  ___ ___    __| | ___ _ __ (_) ___  __| |",
-	" / _ \\ / __/ __/ _ \\/ __/ __|  / _` |/ _ \\ '_ \\| |/ _ \\/ _` |",
-	"/ ___ \\ (_| (_|  __/\\__ \\__ \\ | (_| |  __/ | | | |  __/ (_| |",
-	"/_/   \\_\\___\\___\\___||___/___/  \\__,_|\\___|_| |_|_|\\___|\\__,_|",
-	"",
-	"",
+  "   _                               _            _          _ ",
+  "  / \\   ___ ___ ___  ___ ___    __| | ___ _ __ (_) ___  __| |",
+  " / _ \\ / __/ __/ _ \\/ __/ __|  / _` |/ _ \\ '_ \\| |/ _ \\/ _` |",
+  "/ ___ \\ (_| (_|  __/\\__ \\__ \\ | (_| |  __/ | | | |  __/ (_| |",
+  "/_/   \\_\\___\\___\\___||___/___/  \\__,_|\\___|_| |_|_|\\___|\\__,_|",
+  "",
+  "",
 }
