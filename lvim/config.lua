@@ -3,8 +3,8 @@
  `lvim` is the global options object
 ]]
 -- vim options
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
 vim.opt.relativenumber = true
 
 -- general
@@ -22,6 +22,12 @@ lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
+-- Copilot specific keybindings
+lvim.keys.insert_mode["<C-l>"] = false  -- Clear default binding
+lvim.keys.insert_mode["<C-j>"] = false  -- Clear default binding
+lvim.keys.insert_mode["<C-k>"] = false  -- Clear default binding
+lvim.keys.insert_mode["<C-h>"] = false  -- Clear default binding
+
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
@@ -37,6 +43,9 @@ lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+
+-- Disable vim-illuminate to fix internal errors
+lvim.builtin.illuminate.active = false
 
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
@@ -116,16 +125,7 @@ lvim.builtin.treesitter.auto_install = true
 --   end,
 -- })
 
--- Load language-specific configurations
-local python_config = require("user.python")
-local java_config = require("user.java")
-
 lvim.plugins = {
-  -- Use LunarVim's built-in Java support instead
-  {
-    "mfussenegger/nvim-jdtls",
-    ft = "java",
-  },
   {
     "zbirenbaum/copilot.lua",
     event = { "InsertEnter" },
@@ -133,12 +133,16 @@ lvim.plugins = {
       require("copilot").setup({
         panel = { enabled = false },
         suggestion = {
+          enabled = true,
           auto_trigger = true,
+          debounce = 75,
           keymap = {
-            accept = "<C-l>",
-            next = "<C-j>",
-            prev = "<C-k>",
-            dismiss = "<C-h>",
+            accept = "<Tab>",
+            accept_word = "<C-l>",
+            accept_line = "<C-j>",
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<C-]>",
           },
         },
       })
@@ -150,50 +154,9 @@ lvim.plugins = {
     dependencies = { "zbirenbaum/copilot.lua" },
     config = function()
       require("copilot_cmp").setup()
-
-      -- Properly add Copilot as a cmp source
-      local cmp = require("cmp")
-      cmp.setup({
-        sources = cmp.config.sources({
-          { name = "copilot" },
-        }, {
-          { name = "nvim_lsp" },
-          { name = "buffer" },
-          { name = "path" },
-        })
-      })
     end,
   },
 }
-
--- Add Python plugins from the python configuration
-vim.list_extend(lvim.plugins, python_config.plugins)
-
--- Add Java plugins from the java configuration  
-vim.list_extend(lvim.plugins, java_config.plugins)
-
--- Initialize Python configuration
-python_config.setup()
-
--- Initialize Java configuration
-java_config.setup()
-
--- Enable LunarVim's built-in Java support
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "java",
-  callback = function()
-    -- Enable JDTLS with LunarVim's default configuration
-    require("lvim.lsp.manager").setup("jdtls")
-  end,
-})
-
--- 🔁 Toggle Copilot auto-suggest with <C-s>
-vim.keymap.set("n", "<C-s>", function()
-  local ok, suggestion = pcall(require, "copilot.suggestion")
-  if ok then
-    suggestion.toggle_auto_trigger()
-  end
-end, { noremap = true, silent = true, desc = "Toggle Copilot Auto Trigger" })
 
 lvim.builtin.alpha.dashboard.section.footer.val = {
   "✨ by Tushar Sharma 🛠️",
