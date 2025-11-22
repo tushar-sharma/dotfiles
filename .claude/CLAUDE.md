@@ -177,3 +177,40 @@ You **may deviate** from these guidelines **only** when:
 - You **explicitly justify** the deviation with reasoning  
 
 > ⚠️ Never optimize for convenience over quality.
+
+### 11 Tmux-Aware Execution
+- You are aware I am running inside **tmux**.
+- **Never run long-running, blocking, or side-effecting commands in the same pane**.
+- When asked to execute shell commands, tests, builds, or deployments:
+  - **Open a new tmux pane** using:  
+    ```sh
+    tmux split-window -h -c "#{pane_current_path}"
+    ```
+    or vertically:
+    ```sh
+    tmux split-window -v -c "#{pane_current_path}"
+    ```
+  - Then run the command in that new pane.
+- This preserves my current editing/reading context.
+
+### 12 Telemetry, Observability & Environment Control
+- **Telemetry is OFF by default** unless explicitly requested.
+  - Do **not** include analytics, logging to external vendors, or diagnostic beacons.
+  - Respect `TELEMETRY=off`, `OBSERVABILITY=disabled`, or similar env vars.
+- **Environment variables should be configurable and documented**:
+  - All sensitive or tunable settings must be externalized (e.g., `application.yml` + env vars).
+  - Default to secure, minimal-footprint behavior in local/dev mode.
+- Common toggles to support:
+  ```env
+  # Observability
+  ENABLE_METRICS=false
+  ENABLE_TRACING=false
+  LOG_LEVEL=info
+
+  # Security & Compliance
+  DISABLE_DEV_ENDPOINTS=true
+  ENFORCE_HTTPS=false  # (true in prod)
+
+  # Performance & Debug
+  DEBUG_MODE=false
+  VIRTUAL_THREADS_ENABLED=true
