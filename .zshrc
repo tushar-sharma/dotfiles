@@ -61,6 +61,15 @@ cp() {
 
 autoload -U compinit && compinit
 
+# install delta https://github.com/dandavison/delta
+dfcmd() {
+  if [ "$1" = "-c" ] || [ "$1" = "--cached" ]; then
+     shift
+     git --no-pager diff --cached -- "$@" | delta --side-by-side --line-numbers
+  else
+     git --no-pager diff -- "$@" | delta --side-by-side --line-numbers
+  fi
+}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
