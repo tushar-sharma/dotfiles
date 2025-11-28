@@ -61,7 +61,7 @@ cp() {
 
 autoload -U compinit && compinit
 
-# install delta https://github.com/dandavison/delta
+# install delta https://dandavison.github.io/delta/installation.html
 dfcmd() {
   if [ "$1" = "-c" ] || [ "$1" = "--cached" ]; then
      shift
