@@ -7,6 +7,11 @@ vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.relativenumber = true
 
+-- Add vim-fugitive for git commands
+lvim.plugins = {
+  { "tpope/vim-fugitive" },
+}
+
 -- general
 lvim.log.level = "info"
 lvim.format_on_save = {
