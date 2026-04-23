@@ -20,34 +20,43 @@ source $ZSH/oh-my-zsh.sh
 
 export TERM="xterm-256color"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
 
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Ensure exa is available
-if (( ! ${+commands[exa]} )); then
-  return 1
-fi
-
-
-
-export EXA_COLORS='da=1;34:gm=1;34'
-alias sl='ls'
-alias ls='exa --group-directories-first'
-alias ll='ls -l'        # Long format, git status
-alias l='ll -a'               # Long format, all files
-alias lr='ll -T'              # Long format, recursive as a tree
-alias lx='ll -sextension'     # Long format, sort by extension
-alias lk='ll -ssize'          # Long format, largest file size last
-alias lt='ll -smodified'      # Long format, newest modification time last
-alias lc='ll -schanged'       # Long format, newest status change (ctime) last
 
 # set alias 
 alias g='git'
 alias tg='tig grep'
+
+# ============================================================================
+# Eza Configuration
+# ============================================================================
+# Enhanced color scheme for eza
+export EXA_COLORS='da=1;34:gm=1;34:ga=1;32:gd=1;31:ur=1;33:uw=1;31:ux=1;32:ue=1;32'
+# da=directories (bold blue)
+# gm=git modified (bold blue)
+# ga=git added (bold green)
+# gd=git deleted (bold red)
+# ur/uw/ux/ue=user permissions (yellow/red/green)
+
+# List with colors and details
+if command -v eza &> /dev/null; then
+    # Base aliases with git integration and icons
+    alias ls='eza --group-directories-first --git --icons'
+    alias ll='eza -lh --group-directories-first --git --icons'
+    alias la='eza -lah --group-directories-first --git --icons'
+    alias l='eza -lh --sort=modified --reverse --git --icons'
+
+    # Additional useful aliases
+    alias lr='ll -T'                      # Long format, recursive as a tree
+    alias lx='ll -s extension'            # Long format, sort by extension
+    alias lk='ll -s size'                 # Long format, largest file size last
+    alias lt='ll -s modified'             # Long format, newest modification time last
+    alias lc='ll -s changed'              # Long format, newest status change (ctime) last
+    alias ld='eza -lah --git --header --group --icons'  # Detailed view with headers
+else
+    alias ll='ls -lh'
+    alias la='ls -lah'
+    alias l='ls -ltr'
+fi
 
 
 # make git commit easy
@@ -71,5 +80,3 @@ dfcmd() {
   fi
 }
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
