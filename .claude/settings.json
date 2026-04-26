@@ -14,8 +14,14 @@
   },
   "permissions": {
     "allow": [
+        "Read",
+        "Grep",
+        "Glob",
         "Bash(sudo -A keytool --import *)",
         "Bash(echo $JAVA_HOME)",
+        "Bash(ls *)",
+        "Bash(cd *)",
+        "Bash(./gradlew *)",
         "mcp__obsidian__obsidian_append_content",
         "mcp__obsidian__obsidian_batch_get_file_contents",
         "mcp__obsidian__obsidian_complex_search",
