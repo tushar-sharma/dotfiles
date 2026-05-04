@@ -21,6 +21,8 @@
         "Bash(echo $JAVA_HOME)",
         "Bash(ls *)",
         "Bash(cd *)",
+        "Bash(mkdir *)",
+        "Bash(chmod *)",
         "Bash(./gradlew *)",
         "mcp__obsidian__obsidian_append_content",
         "mcp__obsidian__obsidian_batch_get_file_contents",
