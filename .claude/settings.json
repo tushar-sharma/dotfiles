@@ -39,6 +39,10 @@
      ]
   },
   "model": "us.anthropic.claude-opus-4-6-v1",
+  "attribution": {
+    "commits": false,
+    "pullRequests": false
+  },
   "enableAllProjectMcpServers": true,
   "enabledPlugins": {
     "claude-mem@thedotmack": true,
